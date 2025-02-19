@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "docker-up": "docker compose -f docker/docker-compose.yml up -d",
-    "docker-down": "docker compose -f docker/docker-compose.yml down"
+    "docker-down": "docker compose -f docker/docker-compose.yml down",
+    "start-pg": "docker start zephon-postgres",
+    "stop-pg": "docker stop zephon-postgres"
   },
   "dependencies": {
     "@heroui/react": "^2.7.2",

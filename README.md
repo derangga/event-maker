@@ -2,10 +2,26 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Requirement
 
-- Postgres: you can install the postgres locally or run
+You need to install postgres locally use docker.
+
+### Using docker
+
+spawn the container
 
 ```bash
 npm run docker-up
+```
+
+start the database container
+
+```bash
+npm run start-pg
+```
+
+stop the database container
+
+```bash
+npm run stop-pg
 ```
 
 ## Getting Started
