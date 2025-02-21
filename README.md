@@ -24,6 +24,14 @@ stop the database container
 npm run stop-pg
 ```
 
+### Database Migration
+
+Since this project using prisma, you can execute the migration by run
+
+```bash
+npx prisma db push
+```
+
 ## Getting Started
 
 First, run the development server:
