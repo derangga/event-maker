@@ -11,17 +11,17 @@ export default async function loginAction(_, formData) {
   const response = (success, message) => {
     return { success, message };
   };
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: {
       email: email,
     },
   });
 
   if (!user) {
-    return response(false, "user not found");
+    return response(false, "invalid credential");
   }
 
-  const isValid = await bcrypt.compare(password, (await user).password);
+  const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) {
     return response(false, "invalid password");
   }

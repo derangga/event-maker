@@ -79,6 +79,7 @@ export const RegisterForm = () => {
       <Form
         className="w-full max-w-md flex flex-col gap-4 border rounded-xl p-10 shadow-md"
         validationErrors={errors}
+        validationBehavior="native"
         onSubmit={onSubmit}
       >
         <Input

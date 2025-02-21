@@ -26,6 +26,10 @@ export async function registerAction(formData) {
     },
   });
 
+  if (!user) {
+    return response(false, "failed register user");
+  }
+
   await provideSessionAction(user.id);
 
   return response(true, "");

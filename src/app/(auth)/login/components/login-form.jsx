@@ -26,6 +26,7 @@ export const LoginForm = () => {
     <main className="flex flex-col w-screen h-screen justify-center items-center">
       <Form
         className="w-full max-w-md flex flex-col border rounded-xl p-10 shadow-md gap-4"
+        validationBehavior="native"
         action={formAction}
       >
         <Input
