@@ -4,12 +4,12 @@ import { Footer } from "../_components/footer";
 import { Nav } from "../_components/nav";
 
 export default async function SearchPage({ searchParams }) {
-    const searchQuery = searchParams?.name || "";
+    const searchQuery = await searchParams;
 
     const events = await prisma.event.findMany({
         where: {
             title: {
-                contains: searchQuery,
+                contains: searchQuery.name,
                 mode: "insensitive",
             },
         },
@@ -27,7 +27,7 @@ export default async function SearchPage({ searchParams }) {
         <div className="flex flex-col min-h-screen">
             <Nav />
             <main className="flex-grow py-4 w-6/12 space-y-4 self-center">
-                <h1 className="text-xl font-bold">Search Results for &quot;{searchQuery}&quot;</h1>
+                <h1 className="text-xl font-bold">Search Results for &quot;{searchQuery.name}&quot;</h1>
                 {events.length > 0 ? (
                     <EventCard events={events} />
                 ) : (

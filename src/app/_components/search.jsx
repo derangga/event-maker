@@ -1,28 +1,29 @@
-"use client"
-import { Input, Button } from "@heroui/react"
-import { useState } from "react";
+"use client";
+import { Input, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
 export const Search = () => {
-    const [search, setSearch] = useState("");
     const router = useRouter();
 
     const handleSearch = (e) => {
         e.preventDefault();
-        if (search.trim()) {
-            router.push(`/search?name=${encodeURIComponent(search)}`);
+        const formData = new FormData(e.currentTarget);
+        const query = formData.get("search")?.trim(); // Get input value
+
+        if (query) {
+            router.push(`/search?name=${encodeURIComponent(query)}`);
         }
     };
+
     return (
         <form onSubmit={handleSearch} className="flex w-64 ml-auto gap-2 items-center">
             <Input
-                variant="light"
+                name="search" // Important for FormData to work
+                variant="bordered"
                 label="Search"
                 placeholder="Search Event"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
             />
             <Button type="submit" variant="light">Go</Button>
         </form>
-    )
-}
+    );
+};
