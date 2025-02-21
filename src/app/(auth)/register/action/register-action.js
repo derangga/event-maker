@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/libs/database";
 import bcrypt from "bcrypt";
+import { provideSessionAction } from "../../shared/provide-session-action";
 
 export async function registerAction(formData) {
   const name = formData.get("name")?.toString();
@@ -28,6 +29,8 @@ export async function registerAction(formData) {
   if (!user) {
     return response(false, "failed register user");
   }
+
+  await provideSessionAction(user.id);
 
   return response(true, "");
 }
