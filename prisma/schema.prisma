@@ -18,7 +18,7 @@ model User {
   id        BigInt @id @default(autoincrement())
   name      String
   email     String @unique
-  password  String
+  password  String?
   role      Role
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -60,6 +60,7 @@ model Event {
   title       String
   description String
   location    String
+  image       String?
   scheduledAt DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -88,6 +89,7 @@ model Participant {
   name      String
   email     String
   joinedAt  DateTime @default(now())
+  canceledAt DateTime?
   
   event     Event @relation(fields: [eventId], references: [id])
   eventId   BigInt
