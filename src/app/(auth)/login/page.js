@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
-import { RegisterForm } from "./components/register-form";
 import { redirect } from "next/navigation";
+import { LoginForm } from "./components/login-form";
 
 export default async function Page() {
   const cookie = await cookies();
@@ -8,5 +8,6 @@ export default async function Page() {
   if (session) {
     redirect("/");
   }
-  return <RegisterForm />;
+
+  return <LoginForm />;
 }

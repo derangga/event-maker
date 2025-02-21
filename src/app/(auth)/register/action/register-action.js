@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/libs/database";
 import bcrypt from "bcrypt";
+import { provideSessionAction } from "../../shared/provide-session-action";
 
 export async function registerAction(formData) {
   const name = formData.get("name")?.toString();
@@ -16,7 +17,7 @@ export async function registerAction(formData) {
 
   const hashPw = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name,
       email,
@@ -24,6 +25,8 @@ export async function registerAction(formData) {
       role: "USER",
     },
   });
+
+  await provideSessionAction(user.id);
 
   return response(true, "");
 }
