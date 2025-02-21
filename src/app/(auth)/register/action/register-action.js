@@ -16,7 +16,7 @@ export async function registerAction(formData) {
 
   const hashPw = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name,
       email,
@@ -24,6 +24,10 @@ export async function registerAction(formData) {
       role: "USER",
     },
   });
+
+  if (!user) {
+    return response(false, "failed register user");
+  }
 
   return response(true, "");
 }

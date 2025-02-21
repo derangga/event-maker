@@ -3,7 +3,7 @@
 import { addToast, Button, Form, Input } from "@heroui/react";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { registerAction } from "./_action/register-action";
+import { registerAction } from "./action/register-action";
 
 export default function Page() {
   const [errors, setErrors] = useState({});
@@ -73,6 +73,7 @@ export default function Page() {
     <main className="flex flex-col w-screen h-screen justify-center items-center">
       <Form
         className="w-full max-w-md flex flex-col gap-4 border rounded-xl p-10 shadow-md"
+        validationBehavior="native"
         validationErrors={errors}
         onSubmit={onSubmit}
       >
