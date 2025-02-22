@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Input, Select, DatePicker } from "@heroui/react";
 import { EventCard } from "./event-card";
 
-export const EventFilter = ({ categories, initialEvents }) => {
+export const EventFilter = ({ categories, initialEvents = [] }) => {
   const [events, setEvents] = useState(initialEvents);
   const [filters, setFilters] = useState({});
 
@@ -12,7 +12,7 @@ export const EventFilter = ({ categories, initialEvents }) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
 
-    // query filter
+    // Query filter
     const queryParams = new URLSearchParams();
     if (updatedFilters.categoryId) {
       queryParams.set("categoryId", updatedFilters.categoryId);
@@ -24,14 +24,15 @@ export const EventFilter = ({ categories, initialEvents }) => {
       queryParams.set("scheduledAt", updatedFilters.scheduledAt.toISOString());
     }
 
-    // ambil api events
+    // Ambil data events dari API
     const response = await fetch(`/api/events?${queryParams.toString()}`);
     const filteredEvents = await response.json();
     setEvents(filteredEvents);
   };
+
   return (
     <div className="space-y-4">
-      <div className="flex flex-row items-center gap-4 p-4  rounded-lg">
+      <div className="flex flex-row items-center gap-4 p-4 rounded-lg">
         <Select
           size="sm"
           label="Category"
