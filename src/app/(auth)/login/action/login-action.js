@@ -3,8 +3,12 @@
 import { prisma } from "@/libs/database";
 import bcrypt from "bcrypt";
 import { provideSessionAction } from "../../shared/provide-session-action";
+import { cookies } from "next/headers";
+import * as arctic from "arctic";
+import { googleClient } from "@/libs/google";
+import { redirect } from "next/navigation";
 
-export default async function loginAction(_, formData) {
+export async function loginAction(_, formData) {
   const email = formData.get("email");
   const password = formData.get("password");
 
@@ -29,4 +33,20 @@ export default async function loginAction(_, formData) {
   await provideSessionAction(user.id);
 
   return response(true, "");
+}
+
+export async function loginGoogleAction(_, formData) {
+  const cookie = await cookies();
+  const state = arctic.generateState();
+  const codeVerifier = arctic.generateCodeVerifier();
+  const scopes = ["openid", "profile", "email"];
+  const url = googleClient().createAuthorizationURL(
+    state,
+    codeVerifier,
+    scopes
+  );
+
+  cookie.set("codeVerifier", codeVerifier, { httpOnly: true });
+
+  redirect(`${url.href}`);
 }
