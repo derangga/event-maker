@@ -1,5 +1,4 @@
-// app/_components/event-filter.js
-"use client"; // Tandai sebagai Client Component
+"use client";
 
 import { useState } from "react";
 import { Input, Select, DatePicker } from "@heroui/react";
@@ -13,7 +12,7 @@ export const EventFilter = ({ categories, initialEvents }) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
 
-    // Buat query berdasarkan filter
+    // query filter
     const queryParams = new URLSearchParams();
     if (updatedFilters.categoryId) {
       queryParams.set("categoryId", updatedFilters.categoryId);
@@ -25,7 +24,7 @@ export const EventFilter = ({ categories, initialEvents }) => {
       queryParams.set("scheduledAt", updatedFilters.scheduledAt.toISOString());
     }
 
-    // Fetch data dari API route
+    // ambil api events
     const response = await fetch(`/api/events?${queryParams.toString()}`);
     const filteredEvents = await response.json();
     setEvents(filteredEvents);
