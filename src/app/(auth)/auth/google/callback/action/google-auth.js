@@ -3,6 +3,7 @@ import { provideSessionAction } from "@/app/(auth)/shared/provide-session-action
 import { prisma } from "@/libs/database";
 import { googleClient } from "@/libs/google";
 import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
 
 export async function validateGoogleAuth(params) {
   try {
@@ -24,9 +25,8 @@ export async function validateGoogleAuth(params) {
       }
     );
     const user = await response.json();
-    return user;
+    return response.ok ? user : null;
   } catch (e) {
-    console.log(e);
     return null;
   }
 }
@@ -36,8 +36,14 @@ export const appAuthFlow = async (googleAccount) => {
     where: { email: googleAccount.email },
   });
   const authType = user ? "login" : "register";
-
-  return { user, authType };
+  const token = jwt.sign(
+    {
+      uid: `${user.id}`,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: 60 * 60 }
+  );
+  return { token, authType };
 };
 
 export async function registerGoogleAction(googleAccount) {

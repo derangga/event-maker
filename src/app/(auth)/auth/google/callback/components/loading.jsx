@@ -3,15 +3,18 @@ import { Progress } from "@heroui/react";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
-export const Loading = ({ userId }) => {
+export const Loading = ({ token }) => {
   useEffect(() => {
-    if (!userId && userId < 1) return;
+    if (!token) return;
 
     const requestSession = async () => {
       try {
         const response = await fetch("/api/auth/session", {
           method: "POST",
-          body: JSON.stringify({ user_id: userId }),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const route = response.ok ? "/" : "/login";
@@ -22,7 +25,7 @@ export const Loading = ({ userId }) => {
       }
     };
     requestSession();
-  }, [userId]);
+  }, [token]);
 
   return (
     <Progress

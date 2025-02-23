@@ -14,8 +14,8 @@ export default async function Page({ searchParams }) {
     redirect("/login");
   }
 
-  const result = await appAuthFlow(account);
-  if (result.authType === "register") {
+  const authFlow = await appAuthFlow(account);
+  if (authFlow.authType === "register") {
     const result = await registerGoogleAction(account);
     const route = result.success ? "/" : "/login";
     redirect(route);
@@ -23,7 +23,7 @@ export default async function Page({ searchParams }) {
 
   return (
     <main className="flex flex-col w-screen h-screen justify-center items-center">
-      <Loading userId={`${result.user.id}`} />
+      <Loading token={`${authFlow.token}`} />
     </main>
   );
 }

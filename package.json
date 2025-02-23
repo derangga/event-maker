@@ -21,6 +21,7 @@
     "arctic": "^3.3.0",
     "bcrypt": "^5.1.1",
     "framer-motion": "^12.4.4",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "pg": "^8.13.3",
