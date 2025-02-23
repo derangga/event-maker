@@ -1,11 +1,15 @@
+import { auth } from "@/libs/auth";
 import { prisma } from "@/libs/database";
-import { Button } from "@heroui/react";
+import { Button, Image } from "@heroui/react";
 import { PinIcon } from "lucide-react";
 import moment from "moment";
+import Link from "next/link";
 import React from "react";
 
 export default async function Page({ params }) {
   const { id } = await params;
+
+  const session = await auth();
 
   const event = await prisma.event.findUnique({
     where: { id },
@@ -18,15 +22,25 @@ export default async function Page({ params }) {
   return (
     <main className="flex flex-col items-center justify-center  p-6">
       <div className="flex flex-row w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg justify-between items-center gap-8">
-        <div className="flex flex-col items-center space-y-4">
+        <div className="flex flex-col items-center gap-8 space-y-4 m-6">
           <div className="w-64 h-80 bg-gray-300 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500">No Image Available</p>
+            {event.image ? (
+              <Image
+                alt={event.title}
+                src={`https://pub-d667a4b6b3234b3da35d82684d8c7b7e.r2.dev/${event.userId}/${event.image}`}
+                // className="w-300 h-300 object-cover"
+              />
+            ) : (
+              <p className="text-gray-500">No Image Available</p>
+            )}
           </div>
 
-          {event.userId === event.userId && (
-            <Button color="default" radius="lg" size="lg" className="w-full">
-              Edit Event
-            </Button>
+          {event.userId === session?.user.id && (
+            <Link href={`./edit/${id}`}>
+              <Button color="default" radius="lg" size="lg" className="w-full">
+                Edit Event
+              </Button>
+            </Link>
           )}
         </div>
 

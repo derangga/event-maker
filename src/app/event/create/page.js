@@ -12,7 +12,6 @@ import {
   Textarea,
 } from "@heroui/react";
 import { ImageIcon, GlobeIcon } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default function page() {
