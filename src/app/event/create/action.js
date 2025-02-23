@@ -22,6 +22,7 @@ export async function getCategories() {
 
 export async function authWrapper() {
   const session = await auth();
+
   return session;
 }
 
