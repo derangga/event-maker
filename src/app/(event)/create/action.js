@@ -35,6 +35,13 @@ export async function createEventAction(_, formData) {
 
   const session = await auth();
 
+  if (!session) {
+    return {
+      status: "error",
+      message: "You must be logged in to create an event",
+    };
+  }
+
   if (!title || !datetime || !description || !category || !location) {
     return {
       status: "error",
