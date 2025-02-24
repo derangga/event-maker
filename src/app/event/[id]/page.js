@@ -42,7 +42,7 @@ export default async function Page({ params }) {
           </div>
 
           {event.userId === session?.user.id && (
-            <Link href={`./edit/${id}`}>
+            <Link href={`${id}/edit`}>
               <Button
                 color="default"
                 radius="lg"
