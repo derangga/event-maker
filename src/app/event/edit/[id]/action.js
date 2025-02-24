@@ -28,8 +28,6 @@ export async function getEventById(eventId) {
     if (event.userId !== session.user.id) {
       return null;
     }
-    // console.log(session.user.id);
-    // console.log(event);
     return event;
   } catch (error) {
     console.log("Error fetching event:", error);

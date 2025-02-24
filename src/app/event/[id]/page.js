@@ -28,7 +28,6 @@ export default async function Page({ params }) {
               <Image
                 alt={event.title}
                 src={`https://pub-d667a4b6b3234b3da35d82684d8c7b7e.r2.dev/${event.userId}/${event.image}`}
-                // className="w-300 h-300 object-cover"
               />
             ) : (
               <p className="text-gray-500">No Image Available</p>

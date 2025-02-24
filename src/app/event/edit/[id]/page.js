@@ -26,7 +26,7 @@ export default function EditEventPage() {
 
       const fetchedEvent = await getEventById(id, userSession.user.id);
       if (!fetchedEvent) {
-        redirect("/"); // Redirect if the user isn't the event owner
+        redirect("/");
         return;
       }
 
@@ -39,6 +39,7 @@ export default function EditEventPage() {
   if (!session) {
     return (
       <div className="flex justify-center items-center min-h-screen">
+        Authentication User..
         <p className="text-gray-500 text-lg"></p>
       </div>
     );
@@ -54,8 +55,8 @@ export default function EditEventPage() {
 
   if (state?.status === "success") {
     setTimeout(() => {
-      redirect("/"); // Redirect to homepage after 3 seconds
-    }, 3000);
+      redirect("/");
+    }, 500);
   }
 
   return (
@@ -110,11 +111,7 @@ export default function EditEventPage() {
               required
             />
             <label className="text-sm text-black">Event Schedule</label>
-            <DatePicker
-              name="schedule"
-              // defaultValue={new Date(event.scheduledAt)}
-              required
-            />
+            <DatePicker name="schedule" required />
           </div>
 
           <Button

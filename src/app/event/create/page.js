@@ -24,8 +24,7 @@ export default function page() {
     async function fetchCategories() {
       const userSession = await authWrapper();
       if (!userSession) {
-        redirect("/login"); // Redirect only if session is null
-        // return;
+        redirect("/login");
       }
       setSession(userSession);
 
@@ -44,14 +43,13 @@ export default function page() {
   }, []);
 
   if (!session || !isDelayed) {
-    // redirect("/login")
     return <p className="text-center text-gray-500"></p>;
   }
 
   if (state?.status === "success") {
     setTimeout(() => {
-      redirect("/"); // Redirect to homepage after 3 seconds
-    }, 3000);
+      redirect("/");
+    }, 500);
   }
 
   return (
@@ -60,18 +58,7 @@ export default function page() {
         <form action={formAction} className="space-y-4">
           <div className="flex gap-4">
             <div className="relative w-32 h-32 bg-gray-300 rounded-lg flex items-center justify-center">
-              {/* <ImageIcon className="h-12 w-12 text-gray-600" /> */}
-              {/* <Input
-                name="image"
-                type="file"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              /> */}
-              <Input
-                name="image"
-                type="file"
-                // className="absolute inset-0 opacity-0 cursor-pointer"
-                variant="underlined"
-              />
+              <Input name="image" type="file" variant="underlined" />
             </div>
             <div className="flex flex-col flex-grow">
               <Input
@@ -117,12 +104,7 @@ export default function page() {
             <span>GMT+07:00 Jakarta</span>
           </div>
 
-          <Input
-            name="location"
-            placeholder="Add Event Location"
-            // variant="underlined"
-            required
-          />
+          <Input name="location" placeholder="Add Event Location" required />
 
           <Button
             isLoading={pending}
