@@ -12,7 +12,7 @@ import {
   Textarea,
 } from "@heroui/react";
 import { ImageIcon, GlobeIcon } from "lucide-react";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function page() {
   const [state, formAction, pending] = useActionState(createEventAction, null);
@@ -23,7 +23,11 @@ export default function page() {
   useEffect(() => {
     async function fetchCategories() {
       const userSession = await authWrapper();
+      if (!userSession) {
+        redirect("/login");
+      }
       setSession(userSession);
+
       const fetchedCategories = await getCategories();
       setCategories(fetchedCategories);
     }
@@ -39,38 +43,22 @@ export default function page() {
   }, []);
 
   if (!session || !isDelayed) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        {/* <p className="text-gray-500 text-lg">Checking authentication...</p> */}
-      </div>
-    );
+    return <p className="text-center text-gray-500"></p>;
   }
 
-  if (!session) {
-    return (
-      <div className="text-center text-rose-600 bg-rose-50 p-2 rounded-lg">
-        "you must be logged in to create an event"
-      </div>
-    );
+  if (state?.status === "success") {
+    setTimeout(() => {
+      redirect("/");
+    }, 500);
   }
+
   return (
     <div className=" flex justify-center items-center p-6">
       <Card className="w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
         <form action={formAction} className="space-y-4">
           <div className="flex gap-4">
             <div className="relative w-32 h-32 bg-gray-300 rounded-lg flex items-center justify-center">
-              {/* <ImageIcon className="h-12 w-12 text-gray-600" /> */}
-              {/* <Input
-                name="image"
-                type="file"
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              /> */}
-              <Input
-                name="image"
-                type="file"
-                // className="absolute inset-0 opacity-0 cursor-pointer"
-                variant="underlined"
-              />
+              <Input name="image" type="file" variant="underlined" />
             </div>
             <div className="flex flex-col flex-grow">
               <Input
@@ -116,12 +104,7 @@ export default function page() {
             <span>GMT+07:00 Jakarta</span>
           </div>
 
-          <Input
-            name="location"
-            placeholder="Add Event Location"
-            // variant="underlined"
-            required
-          />
+          <Input name="location" placeholder="Add Event Location" required />
 
           <Button
             isLoading={pending}
