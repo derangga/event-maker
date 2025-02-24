@@ -1,6 +1,5 @@
 import { s3Client } from "@/utils/s3";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import React from "react";
 
 export async function uploadImage({ key, folder, body }) {
   const buffer = Buffer.from(await body.arrayBuffer());

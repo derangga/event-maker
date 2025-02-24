@@ -1,10 +1,11 @@
+"use server";
 import { cookies } from "next/headers";
 import { prisma } from "./database";
 
 export async function auth() {
   try {
     const cookiesStore = await cookies();
-    const sessionId = await cookiesStore.get("session_id")?.value;
+    const sessionId = cookiesStore.get("session_id")?.value;
 
     if (!sessionId) {
       return null;
