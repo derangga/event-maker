@@ -21,7 +21,7 @@ export default function Layout({ children }) {
                     } transition-transform lg:translate-x-0 lg:static`}
             >
                 <div className="p-4 flex justify-between items-center border-b">
-                    <h2 className="text-lg font-semibold">Admin Panel</h2>
+                    <h2 className="text-lg font-semibold">Dashboard</h2>
                     <button onClick={() => setIsOpen(false)} className="lg:hidden">
                         <X className="w-6 h-6" />
                     </button>
