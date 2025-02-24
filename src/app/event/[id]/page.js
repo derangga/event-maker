@@ -1,5 +1,6 @@
 import { auth } from "@/libs/auth";
 import { prisma } from "@/libs/database";
+import { getEventImageUrl } from "@/utils/imageLoader";
 import { Button, Image } from "@heroui/react";
 import { PinIcon } from "lucide-react";
 import moment from "moment";
@@ -27,7 +28,7 @@ export default async function Page({ params }) {
             {event.image ? (
               <Image
                 alt={event.title}
-                src={`https://pub-d667a4b6b3234b3da35d82684d8c7b7e.r2.dev/${event.userId}/${event.image}`}
+                src={getEventImageUrl(event.userId, event.image)}
               />
             ) : (
               <p className="text-gray-500">No Image Available</p>

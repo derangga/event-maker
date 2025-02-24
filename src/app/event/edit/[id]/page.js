@@ -6,6 +6,7 @@ import { Button, Input, DatePicker, Textarea, Card } from "@heroui/react";
 import { ImageIcon } from "lucide-react";
 import { useParams, redirect } from "next/navigation";
 import { authWrapper, getEventById, updateEventAction } from "./action";
+import { getEventImageUrl } from "@/utils/imageLoader";
 
 export default function EditEventPage() {
   const { id } = useParams();
@@ -72,7 +73,7 @@ export default function EditEventPage() {
             >
               {imagePreview ? (
                 <img
-                  src={`https://pub-d667a4b6b3234b3da35d82684d8c7b7e.r2.dev/${event.userId}/${imagePreview}`}
+                  src={getEventImageUrl(event.userId, event.image)}
                   alt="Preview"
                   className="w-full h-full object-cover rounded-lg"
                 />
@@ -84,7 +85,6 @@ export default function EditEventPage() {
                 name="image"
                 type="file"
                 className="hidden"
-                defaultValue={event.image}
               />
             </label>
           </div>
