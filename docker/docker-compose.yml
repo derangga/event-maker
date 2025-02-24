@@ -1,15 +1,16 @@
-version: "3.8"
-name: zephon
+version: '3.8'
+
 services:
   postgres:
     image: postgres:latest
     container_name: zephon-postgres
-    ports:
-      - "5432:5432"
+    restart: always
     environment:
       POSTGRES_USER: zephon
       POSTGRES_PASSWORD: zephonpassword
-      POSTGRES_DB: eventmakerdb
+      POSTGRES_DB: eventmaker
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
