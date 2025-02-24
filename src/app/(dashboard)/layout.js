@@ -6,8 +6,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const sidebarLinks = [
-    { name: "My Events", href: "/my-events" },
-    { name: "Joined Events", href: "/joined-events" },
+    { name: "My Events", href: "/events/manage" },
 ];
 
 export default function Layout({ children }) {

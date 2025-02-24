@@ -1,6 +1,6 @@
 import { auth } from "@/libs/auth";
 import { prisma } from "@/libs/database";
-import { EventTable } from "./_components/event-table";
+import { EventTable } from "../_components/event-table";
 
 export default async function Page() {
     const session = await auth();
@@ -8,7 +8,7 @@ export default async function Page() {
     const userId = session.user.id;
 
     const userEvents = await prisma.event.findMany({
-        where: { userId },
+        where: { userId, deletedAt: null },
         include: {
             category: true
         }
