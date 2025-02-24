@@ -6,6 +6,12 @@ import { PinIcon } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
 import React from "react";
+import {
+  formatMonth,
+  formatDay,
+  formatFullDate,
+  formatTime,
+} from "@/utils/dateFormatter";
 
 export default async function Page({ params }) {
   const { id } = await params;
@@ -37,7 +43,12 @@ export default async function Page({ params }) {
 
           {event.userId === session?.user.id && (
             <Link href={`./edit/${id}`}>
-              <Button color="default" radius="lg" size="lg" className="w-full">
+              <Button
+                color="default"
+                radius="lg"
+                size="lg"
+                className="w-full hover:bg-orange-300"
+              >
                 Edit Event
               </Button>
             </Link>
@@ -50,17 +61,15 @@ export default async function Page({ params }) {
           <section className="flex items-center gap-4">
             <div className="border rounded-lg overflow-hidden text-center w-16 shadow-sm">
               <div className="px-3 py-1 text-sm font-semibold bg-gray-100">
-                {moment(event.date).format("MMM")}
+                {formatMonth(event.date)}
               </div>
               <div className="px-3 py-2 text-lg font-bold text-gray-900">
-                {moment(event.date).format("DD")}
+                {formatDay(event.date)}
               </div>
             </div>
             <div className="text-gray-700">
-              <p className="font-semibold">
-                {moment(event.date).format("dddd, MMM YYYY")}
-              </p>
-              <p>{moment(event.date).format("hh:mm A")}</p>
+              <p className="font-semibold">{formatFullDate(event.date)}</p>
+              <p>{formatTime(event.date)}</p>
             </div>
           </section>
 
