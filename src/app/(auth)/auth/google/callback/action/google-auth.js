@@ -35,15 +35,19 @@ export const appAuthFlow = async (googleAccount) => {
   const user = await prisma.user.findFirst({
     where: { email: googleAccount.email },
   });
-  const authType = user ? "login" : "register";
-  const token = jwt.sign(
-    {
-      uid: `${user.id}`,
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: 5 * 60 }
-  );
-  return { token, authType };
+
+  if (user) {
+    const token = jwt.sign(
+      {
+        uid: `${user.id}`,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: 5 * 60 }
+    );
+    return { token, authType: "login" };
+  } else {
+    return { authType: "register" };
+  }
 };
 
 export async function registerGoogleAction(googleAccount) {
