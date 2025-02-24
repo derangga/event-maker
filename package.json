@@ -17,6 +17,8 @@
     "@heroicons/react": "^2.2.0",
     "@heroui/react": "^2.7.2",
     "@prisma/adapter-pg": "^6.4.0",
+    "@prisma/client": "^6.4.1",
+    "arctic": "^3.3.0",
     "bcrypt": "^5.1.1",
     "framer-motion": "^12.4.4",
     "jsonwebtoken": "^9.0.2",
