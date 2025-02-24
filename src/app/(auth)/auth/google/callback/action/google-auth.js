@@ -41,7 +41,7 @@ export const appAuthFlow = async (googleAccount) => {
       uid: `${user.id}`,
     },
     process.env.JWT_SECRET,
-    { expiresIn: 60 * 60 }
+    { expiresIn: 5 * 60 }
   );
   return { token, authType };
 };
